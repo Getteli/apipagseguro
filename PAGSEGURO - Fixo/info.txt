@@ -1,0 +1,58 @@
+PAGSEGURO
+version #
+data 20/11/18
+
+ATUALIZAÇÃO:
+
+INFO:
+	- Ocorre um erro no console javascript, pois esta em sandbox e local, ao por true no ssl do curl, modo producao e estar no servidor, fica tudo show
+	- O script return_ps_status.php - é exemplo de script para fazer o retorno no pagseguro (chamado notificacao) depois da compra confirmada. Recebo o status de pagamento, data e referencia (um id do pedido, configuravel pelo getprod). A partir disso, pega o que precisar do usuario via o id do pedido (reference), muda status, FAZ A CONTAGEM DO TEMPO (ja q essa modalidade é sobre pacote com tempo), faz todo o necessario e com cron pra diminuir o tempo e etc.. e envia email.. e pronto.
+	- Usando o tipo + numero (que é igual o tempo do pacote) = uma referencia/id. Com isso saberá qual o tipo de pacote e o tempo escolhio (1 mes, 6 meses, 12 meses..). Usando isso, coloca no banco o tipo de pacote, a data de inicio e um campo com o tempo de dias em numero, e vai diminuindo esses dias pelo cron. quando chegar no final, bloqueia o pacote, avisa o cliente (email, notificacao e etc) para reativar o pacote, comprar um novo.
+	- Se comprar o pacote com X dias antes de vencer, tem que somar esses dias + os novos.. e por ai vai, outras coisas vão depender de casa projeto, como cron e etc.
+	- PagSeguro.class.php - A classe padrao do pagseguro. Configurar o token original, email e link de retonro para a notificação
+	- Se a página não começar com um desses checkbox marcados, retira o value definido no form do pagseguro e desative o btn de compra, só ative ao marcar um checkbox no javascript
+	- Para a producao, habilitar a verificacao do SSL no cURL do php pagseguro getprod.
+	- Ao fazer a implementação em um projeto, para facilitar a manutenção, coloque as variaveis de email, tokens e tudo necessario sobe o pagseguro, no arquivo de var. onde concentro todas as variaveis. Pois está espalhado as mesmas informações no getprod e pagseguro.class.
+
+NOMECLATURA:
+	Sandbox - ambiente de teste do pagseguro. Apenas retire o sandbox no link (e token..) para o modo de producao, e vice e versa.
+	ps - PagSeguro
+
+BIBLIOGRAFIA E DADOS:
+	- Conta vendedor: iliontecnologia@gmail.com  iliontec2018
+	- Conta comprador: Douglas_Araujo018@outlook.com  DougIlionTec05
+	- Frase de segurança : Ilion Tecnologia
+	- Video aula: https://www.youtube.com/watch?v=7ek1FcSYQtw
+		https://www.youtube.com/watch?v=kQ2bCfUdd5w
+		https://www.youtube.com/watch?v=hEF97Ui6NRk&feature=youtu.be&fbclid=IwAR2vap51cy-xmAQW5n8DP0vvAr_GQigAvA3PfSCF4et75FPQKCqP2M6S-lg
+		https://www.youtube.com/watch?v=VCuLvRG3IAs&list=PLbnAsJ6zlidtd8Xfia6qzie0sxZctlxco
+	- https://pagseguro.uol.com.br/preferencias/integracoes.jhtml - aqui você gera o token, e define a url para confirmar o pagamento
+	- https://pagseguro.uol.com.br/v2/guia-de-integracao/api-de-notificacoes.html#!rmcl - se quiser algum outro dado do xml para o retorno ao ser notificado sobre o status da compra, ver o xml.
+	- https://devs.pagseguro.uol.com.br/v1/reference
+	- https://pagseguro.uol.com.br/preferencias/integracoes.jhtml?_ga=2.55097378.861689540.1540836387-amp-1ZWUAYmJljDnMIAlv35aQQ
+	- https://pt.stackoverflow.com/questions/234631/pegar-itens-do-carrinho-de-compras-com-php
+
+COMO FAZER:
+	- Criar uma conta de vendedor (depois confirma conta, cartão de crédito, numero e etc..)
+	- No seu perfil vá em: VENDA ONLINE:
+		- Recebimento: Escolhe se quer pagamento via boleto, cartão e etc..
+		- Integração: Escolhe a pagina para notificacao (depois do pagamento for efetuado, mudar estatus no banco)
+		- Personalização: adiciona um logo da loja e cor
+	- Agora vá em VENDA ONLINE > Venda rápida:
+		- Criar uma forma de venda rápida, via lighbox com produtos fixos pré definido
+		- Escolha o tipo (comprar, doar, assinar)
+	- FORMAS DE CRIAR UM PRODUTO
+			- FORMA 1 (meio gambiarra)
+				- Numero do item (código)
+				- Nome do item
+				- Valor do item
+				- Frete (se tem(tipos) ou não)
+				- Outras configurações
+			- FORMA 2 (via script)
+				- no script getprod_pagseguro.php, ao escolher o tipo de pacote (via radio no js - ajax), gera o produto com seus atributos e será gerado um codigo via pagseguro, entao o codigo é add ao form do btn do pagseguro e pronto
+		- Aparencia do botão (cor, texto, tipo, tamanho,...)
+		- Tipo (Lightbox mais utilizado, um popup no proprio site... | padrao - redireciona para o site do pagseguro)
+	- Agora gera o botão.
+		PS¹: Ao gerar esse código é só colocar no site, o codigo com o botão (vem com um form, script js e uns input com o codigo do produto)
+		PS²: O fato desse código ser gerado pelo pagseguro sobre o produto para aparecer no popup, não tem como modificar o item, nem nada, APENAS NESSE LOCAL ONDE ESTÁ SENDO FEITO TUDO ISSO. Então essa modalidade eu chamo de FIXA, com um item fixo (posso adicoinar mais criando um novo produto, gerando o botão e pegando o value desse codigo). Ai se quiser posso pegar esse codigo e colocar em um javascript para alterar e etc, como o exemplo aqui citado.
+		Ps³: Agora como posso gerar o produto via script, fica mais flexivel.

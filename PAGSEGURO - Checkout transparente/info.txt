@@ -1,0 +1,61 @@
+PAGSEGURO
+version #
+data 31/10/18
+
+ATUALIZAÇÃO:
+	- Para estilizar: esconder os tipos de pagamento, e só exibir se clicar na div
+		ao preencher cada campo (sobre o cartao), vai liberando o outro, ate chegar no cvv (pra pegar o token do cartao)
+		arrumar tudo
+	- arrumar o javascript
+		- ao arrumar o javascript, colocar para pegar os dados do form para pegar os hash e token do cartao..
+	- o php (pegar tudo do form)
+	- pegar tambem o valor, e esse valor precisa ser o mesmo do javascript
+	- o shiping type (se é pac, se é sedex, ver na documentacao), colocar no form, mas deixar comentado que se for algum tipo de compra fixa, pode sumir, e no php se sumir deixar um fixo (1 por ex), se nao add o do form
+	- colocar as mascaras, colocar os campos todos no form, dados de comprador, usuario, cpf do cartao e comprador, e etc etc. ao add as mascaras, no php retira coma  funcao.
+	- add o script de details, pra juntar as funcoes de remover pontos e etc. 
+	- bloquear o btn de compra, ate q tudo esteja feito, e preenchido
+	- Enviar o link para gerar o boleto para o email do cidadao
+
+INFO:
+	- Conta vendedor: iliontecnologia@gmail.com  iliontec2018
+	- Conta comprador: Douglas_Araujo018@outlook.com  DougIlionTec05
+	- Frase de segurança : Ilion Tecnologia
+	- Video aula: https://www.youtube.com/watch?v=7ek1FcSYQtw
+		https://www.youtube.com/watch?v=kQ2bCfUdd5w
+		https://www.youtube.com/watch?v=hEF97Ui6NRk&feature=youtu.be&fbclid=IwAR2vap51cy-xmAQW5n8DP0vvAr_GQigAvA3PfSCF4et75FPQKCqP2M6S-lg
+		https://www.youtube.com/watch?v=VCuLvRG3IAs&list=PLbnAsJ6zlidtd8Xfia6qzie0sxZctlxco
+	- https://pagseguro.uol.com.br/preferencias/integracoes.jhtml - aqui você gera o token, e define a url para confirmar o pagamento
+	- https://pagseguro.uol.com.br/v2/guia-de-integracao/api-de-notificacoes.html#!rmcl - se quiser algum outro dado do xml para o retorno ao ser notificado sobre o status da compra, ver o xml.
+	- Nos links - sandbox. no inicio significa ambiente de teste	
+	- O script return_ps_status.php - é exemplo de script para fazer o retorno no pagseguro (chamado notificacao) depois da compra confirmada. Recebo o status de pagamento, data e referencia (um id do pedido, configuravel pelo getprod). A partir disso, pega o que precisar do usuario via o id do pedido (reference), muda status envia email e etc..
+	- pagseguro.class.php - A classe padrao do pagseguro. Configurar o token original, email e link de retorno para a notificação.
+	- Para a producao, habilitar a verificacao do SSL no cURL do php pagseguro getprod.
+	- A logica do carrinho é diferente à do fixo. Uso o getprod_pagseguro no header da pagina onde finalizarei o pedido. ele gerará o codigo usando o mesmo array do carrinho interno. fará a separacao de cada item, pegando nome no banco E O PREÇO UNICO DO PRODUTO, pois no array interno uso o preco ja multiplicado, entao pegue o preco unico para entrar no carrinho do pagseguro. o codigo gerado será levado ao form do btn do pagseguro, ps: faça o tratamento de erro que desejar.
+	- Ao fazer a implementação em um projeto, para facilitar a manutenção, coloque as variaveis de email, tokens e tudo necessario sobe o pagseguro, no arquivo de config. Onde concentro todas as variaveis sobre o pagseguro.
+	- PS: Está acontecendo um erro ao GERAR boleto no modo SANDBOX. No modo produção está funcionando perfeitamente.
+
+NOMECLATURA:
+	Sandbox - ambiente de teste do pagseguro
+	ps - PagSeguro
+
+BIBLIOGRAFIA:
+		https://devs.pagseguro.uol.com.br/v1/reference
+		https://pagseguro.uol.com.br/preferencias/integracoes.jhtml?_ga=2.55097378.861689540.1540836387-amp-1ZWUAYmJljDnMIAlv35aQQ
+		https://pt.stackoverflow.com/questions/234631/pegar-itens-do-carrinho-de-compras-com-php
+
+COMO FAZER:
+	- Criar uma conta de vendedor (depois confirma conta, numero e etc..)
+	- No seu perfil vá em: VENDA ONLINE:
+		- Recebimento: Escolhe se quer pagamento via boleto, cartão e etc..
+		- Integração: Escolhe o link de retorno ao comprar o item, escolhe a pagina para notificacao (depois do pagamento for efetuado, mudar estatus no banco)
+		- Personalização: adiciona um logo da loja e cor
+	- Agora vá em VENDA ONLINE > Venda rápida:
+		- Criar uma forma de venda rápida, via lighbox ou padrao para pegar o script do btn
+		- Escolha o tipo (comprar, doar, assinar)
+	- CRIAR CARRINHO
+		- no script getprod_pagseguro.php + carrinho interno do sistema, desmembra o array do carrinho, e coloca no array do pagseguro. depois gera o codigo desse pedido e coloca no form, na pagina de finalizacao de pedido.
+		- Aparencia do botão (cor, texto, tipo, tamanho,...)
+		- Tipo (Lightbox mais utilizado, um popup no proprio site... | padrao - redireciona para o site do pagseguro)
+	- Agora gera o botão.
+		PS¹: Ao gerar esse código é só colocar no site, o codigo com o botão (vem com um form, script js e uns input com o codigo do produto)
+		Ps2: Agora como posso gerar o produto via script, fica mais flexivel.
