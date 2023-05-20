@@ -12,7 +12,8 @@
 </p>
 
 <p>
-    API do Pagseguro criada por mim, e atualizada algumas vezes.
+    API do Pagseguro feita em <b>PHP</b> com o <b>SDK</b> do <b>Pagseguro</b> e <b>SDK</b> em <b>JavaScript</b> (para a geração de tokens e hashs).<br>
+    Possui a versão em checkout transparente, botão fixo (que leva para o pagseguro), assinatura, carrinho de compras e classes para pagamento de cartão de crédito e boleto (com valor fixo). Fique a vontade para utilizar, testar e/ou aprimorar 🤓
 </p>
 
 ## Tecnologias usadas:
