@@ -5,11 +5,54 @@
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
-	<link rel="shortcut icon" href="resources/image/favicon.png" type="image/x-icon"/>
+	<link rel="shortcut icon" href="resource/image/favicon.png" type="image/x-icon"/>
 	<link rel="stylesheet" href="resource/style/index.css">
 	<title>API - Pagseguro</title>
 </head>
 <body>
+	<div class="container">
+        <div class="row mt-5">
+            <div class="col-12 text-center">
+                <center>
+                        <img src="resource/image/pagseguro-logo.png" alt="API Pagseguro" width="100px">
+                        <h1>API - Pagseguro PHP</h1>
+                </center>
+                <p class="fs-6 ">Scripts e classes para pagamento via API do pagseguro em <b>PHP</b> e <b>JS</b></p>
+            </div>
+		</div>
+
+		<div class="row g-4">
+			<div class="offset-0 col-12 col-md-8 offset-md-2">
+				<section>
+					<h4 class="text-center">API</h4>
+					<p>O Pagseguro possui diversas formas de realizar uma transação. Os mais comuns são: botao fixo levando ao site do pagseguro, um checkout transparente, carrinho de compras e assinatura</p>
+					<p>Eu criei aqui algumas formas usando o antigo SDK via PHP e com JS para gerar os hash tokens necessários para a compra. A versão mais recente ( página de exemplo - <a href="Pagseguro - Checkout transparent (valor fixo)/index.html" target="_blank">Pagseguro - Checkout transparent (valor fixo)</a> ) pode ser editada e mesclada as outras formas, para ter classes com carrinho ou assinatura por exemplo.</p>
+					<p>Para mais detalhes e ver os códigos, veja os arquivos no meu <a href="https://github.com/Getteli/apipagseguro">GitHub</a> </p>
+					<p>As versões antigas marcadas como legacy, podem ser ainda usadas tranquilamente, porém é necessário uma atualização em seus códigos (fique a vontade!), apenas não o faço a algum tempo. <b>Aproveite :)</b></p>
+				</section>
+			</div>
+			<div class="offset-0 col-12 col-md-8 offset-md-2">
+				<p>
+					Esta é a classe para realizar o pagamento de um valor fixo, via boleto (algumas classes no parametro seriam as do seu usuário, como algum dado financeiro digitado, email, endereço e etc).
+				</p>
+				<iframe height="400" width="100%" src="https://replit.com/@Getteli/Exemplo-classe-boleto-php-pagseguro?embed=1&outputonly=1&lite=1#index.php
+				" ></iframe>
+			</div>
+			<div class="offset-0 col-12 col-md-8 offset-md-2">
+				<p>
+					Já esta classe, é parecida com a de pagamento <b>via boleot</b>, mas desta vez por cartão de crédito (veja que existem muitas configurações diferentes).
+				</p>
+				<iframe height="400" width="100%" src="https://replit.com/@Getteli/Exemplo-classe-cartao-de-credito-php-pagseguro?embed=1&outputonly=1&lite=1#index.php" ></iframe>
+			</div>
+
+			<div class="offset-0 col-12 col-md-8 offset-md-2">
+				<p>
+					Aqui temos um exemplo da versão <i>legacy</i> para pagamento com carrinho. Onde podemos recuperar os dados do front com os itens do carrinhos.
+				</p>
+				<iframe height="400" width="100%" src="https://replit.com/@Getteli/Exemplo-de-codigo-com-carrinho-para-pagseguro?embed=1&outputonly=1&lite=1#index.php" ></iframe>
+			</div>
+		</div>
+	</div>
 	<footer>
 		<div class="">
 			<p>Veja este projeto no <a href="https://github.com/Getteli/apipagseguro"><b>GITHUB</b></a></p>

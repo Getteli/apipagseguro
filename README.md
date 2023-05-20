@@ -1,4 +1,4 @@
-<p align="center"><a href="https://getteli.github.io/apipagseguro/" target="_blank"><img src="https://getteli.github.io/apipagseguro/resource/image/pagseguro.png" width="200"></a></p>
+<p align="center"><a href="https://getteli.github.io/apipagseguro/" target="_blank"><img src="https://getteli.github.io/apipagseguro/resource/image/pagseguro.png" width="100"></a></p>
 
 <h2 align="center">
     <b>API - Pagseguro</b>

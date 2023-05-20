@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+	<link rel="shortcut icon" href="../resource/image/favicon.png" type="image/x-icon"/>
+	<link rel="stylesheet" href="../resource/style/index.css">
+	<title>Pagseguro - Checkout transparent (valor fixo)</title>
+</head>
+<body>
+	<div class="container-xxl">
+		<div class="w-90">
+			<p class="bold text-center h5 color-secondary">Detalhes do pagamento</p>
+			<p class="text-center subtitle">Escolha a sua configuração de pagamento. <b>obs:</b> todos os dados seram encriptados</p>
+			<p class="text-center">A ideia aqui, é os dados virem do banco de dados.</p>
+			<div class="container">
+				<fieldset id="container_form_payment">
+					<input type="text" class="d-none" name="amount" id="amount-to-pay" value="100">
+					<input type="text" class="d-none" name="idObject" id="id-object" value="">
+					<div class="form-check">
+						<input class="form-check-input gateway-type-payment" type="radio" name="gateway-type-payment" id="pagseguro-type-payment" value="1">
+						<label class="form-check-label" for="pagseguro-type-payment">
+							<img src="../resource/image/pagseguro-logo.png" width="100px" alt="Pagseguro" class="pagseguro-logo max-w-100" width="100">
+						</label>
+
+						<div class="container-gateway cg-pagseguro d-none">
+							<div class="col-12 my-3">
+								<div class="input-group">
+									<div class="input-info-div-l"><span>R$</span></div>
+									<input type="text" class="form-control positiveNumericInput ps-5" readonly disabled name="amount-to-preview" value="100">
+								</div>
+							</div>
+
+							<!-- campo para escolher o tipo de pagamento -->
+							<div class="col-12" id="container-pagseguro">
+								<div class="col-6 offset-3 justify-content-between d-flex">
+									<div class="col-6">
+										<input type="radio" name="form_payment" id="Boleto" class="custom-control-input form_payment" value="2">
+										<label class="custom-control-label" for="Boleto">Boleto</label>
+									</div>
+									<div class="col-6">
+										<input type="radio" name="form_payment" id="Cartao" class="custom-control-input form_payment" value="1">
+										<label class="custom-control-label" for="Cartao">Cartão</label>
+									</div>
+								</div>
+							</div>
+
+							<input type="text" class="d-none" name="hash_card" id="hash_card" data-financial=""><!-- recupere_dados_necessarios_json_backend -->
+							<!-- token gerado do cartão -->
+							<input type="text" class="d-none" name="token_card" id="token_card">
+
+							<!-- se for cartao exibe essa div -->
+							<fieldset id="container_card_payment" class="row d-none">
+								<div class=" col-9">
+									<label for="num_card" class="col-md-12 col-form-label text-md-right">
+										<span class="label">Cartão<i class="required">*</i></span>
+									</label>
+									<div class="input-group">
+										<input id="num_card" type="text" required minlength="14" maxlength="16" class="form-control positiveNumericInput" name="num_card" value="4111111111111111">
+										<div class="input-info-div-r">
+											<span>
+												<!-- input invisivel com a bandeira -->
+												<input type="text" id="brand_card" class="d-none" name="brand_card" value="visa">
+												<!-- exibir a bandeira para o usuario -->
+												<img src="https://stc.pagseguro.uol.com.br/public/img/payment-methods-flags/42x20/visa.png" id="image_brand" class="">
+											</span>
+										</div>
+									</div>
+								</div>
+
+								<div class="col-3">
+									<label for="cvv_card" class="col-md-12 col-form-label text-md-right">
+										<span class="label">CVV<i class="required">*</i></span>
+									</label>
+									<input id="cvv_card" type="text" required minlength="3" maxlength="3" placeholder="000" class="form-control positiveNumericInput" name="cvv_card" value="123">
+								</div>
+							
+								<div class="col-6 col-lg-4">
+									<label for="month_card" class="col-md-12 col-form-label text-md-right">
+										<span class="label">Mês<i class="required">*</i></span>
+									</label>
+									<input id="month_card" type="text" required minlength="2" maxlength="2" placeholder="00" class="form-control positiveNumericInput" name="month_card" value="12">
+								</div>
+							
+								<div class="col-6 col-lg-4">
+									<label for="year_card" class="col-md-12 col-form-label text-md-right">
+										<span class="label">Ano<i class="required">*</i></span>
+									</label>
+									<input id="year_card" type="text" required minlength="4" maxlength="4" placeholder="0000" class="form-control positiveNumericInput" name="year_card" value="2027">
+								</div>
+							
+								<div class="col-12 col-lg-4">
+									<label for="birth_date_card" class="col-md-12 col-form-label text-md-right">
+										<span class="label">Data de nascimento<i class="required">*</i></span>
+									</label>
+									<input id="birth_date_card" required type="date" placeholder="dd/mm/yyyy" min="1900-01-01" max="2100-12-31" class="form-control" name="birth_date_card" value="1990-12-12">
+								</div>
+							
+								<div class="col-12 col-lg-6">
+									<label for="cpf_card" class="col-md-12 col-form-label text-md-right">
+										<span class="label">CPF (gerado pelo 4dev)<i class="required">*</i></span>
+									</label>
+									<input id="cpf_card" required maxlength="14" type="text" class="maskedCpf form-control" name="cpf_card" value="139.655.330-45">
+								</div>
+							
+								<div class="col-12 col-lg-6">
+									<label for="name_card" class="col-md-12 col-form-label text-md-right">
+										<span class="label">Nome completo<i class="required">*</i></span>
+									</label>
+									<input id="name_card" maxlength="60" minlength="5" type="text" class="form-control" name="name_card" value="Fulano da Silva" placeholder="Nome completo">
+								</div>
+							</fieldset>
+
+							<button type="submit" class="buttons-form btn-tertiary btn-effect col-12 my-3 disabled" disabled id="btn_pay_backend" data-textselect="Selecione um meio de pagamento" data-textwaiting="Aguarde, gerando dados..." data-textpay="Pagar">Selecione um meio de pagamento</button>
+						</div>
+					</div>
+				</fieldset>
+			</div>
+		</div>
+	</div>
+	<footer>
+		<div class="">
+			<p>Veja este projeto no <a href="https://github.com/Getteli/apipagseguro"><b>GITHUB</b></a></p>
+		</div>
+		<div class="">
+			<a class="logo-douglas" href="https://getteli.github.io/Getteli">
+				<img src="https://getteli.github.io/Getteli/resources/midia/DG_logo.png" class="mx-auto mb-4 p-0" alt="DG" width="35px">
+				<span>Douglas A. Silva</span>
+			</a>
+		</div>
+		<div class="">
+			<p>criado pelo <b>Douglas Araujo Silva</b>, entre em contato para mais informação.</p>
+		</div>
+	</footer>
+
+	<script src="https://stc.sandbox.pagseguro.uol.com.br/pagseguro/api/v2/checkout/pagseguro.directpayment.js"></script>
+	<script src="payment.js"></script>
